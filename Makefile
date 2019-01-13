@@ -1,6 +1,6 @@
 .PHONY: api
 api:
-	swagger generate server -A todo-list -f swagger.yml
+	swagger generate server -A todo-list -f ./schemas/swagger.yml
 
 .PHONY: serve
 serve: api
@@ -8,4 +8,4 @@ serve: api
 
 .PHONY: validate
 validate:
-	swagger validate swagger.yml
+	swagger validate ./schemas/swagger.yml
