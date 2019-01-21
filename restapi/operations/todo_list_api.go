@@ -39,8 +39,8 @@ func NewTodoListAPI(spec *loads.Document) *TodoListAPI {
 		BearerAuthenticator: security.BearerAuth,
 		JSONConsumer:        runtime.JSONConsumer(),
 		JSONProducer:        runtime.JSONProducer(),
-		TodosGetHandler: todos.GetHandlerFunc(func(params todos.GetParams) middleware.Responder {
-			return middleware.NotImplemented("operation TodosGet has not yet been implemented")
+		TodosFindTodosHandler: todos.FindTodosHandlerFunc(func(params todos.FindTodosParams) middleware.Responder {
+			return middleware.NotImplemented("operation TodosFindTodos has not yet been implemented")
 		}),
 	}
 }
@@ -73,8 +73,8 @@ type TodoListAPI struct {
 	// JSONProducer registers a producer for a "application/io.goswagger.examples.todo-list.v1+json" mime type
 	JSONProducer runtime.Producer
 
-	// TodosGetHandler sets the operation handler for the get operation
-	TodosGetHandler todos.GetHandler
+	// TodosFindTodosHandler sets the operation handler for the find todos operation
+	TodosFindTodosHandler todos.FindTodosHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -138,8 +138,8 @@ func (o *TodoListAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
-	if o.TodosGetHandler == nil {
-		unregistered = append(unregistered, "todos.GetHandler")
+	if o.TodosFindTodosHandler == nil {
+		unregistered = append(unregistered, "todos.FindTodosHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -243,7 +243,7 @@ func (o *TodoListAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"][""] = todos.NewGet(o.context, o.TodosGetHandler)
+	o.handlers["GET"][""] = todos.NewFindTodos(o.context, o.TodosFindTodosHandler)
 
 }
 
