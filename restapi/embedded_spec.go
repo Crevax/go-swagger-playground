@@ -102,6 +102,34 @@ func init() {
           }
         }
       }
+    },
+    "/{id}": {
+      "delete": {
+        "tags": [
+          "todos"
+        ],
+        "operationId": "destroyOne",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "deleted"
+          },
+          "default": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -221,6 +249,34 @@ func init() {
           },
           "default": {
             "description": "generic error response",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/{id}": {
+      "delete": {
+        "tags": [
+          "todos"
+        ],
+        "operationId": "destroyOne",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "deleted"
+          },
+          "default": {
+            "description": "error",
             "schema": {
               "$ref": "#/definitions/error"
             }
